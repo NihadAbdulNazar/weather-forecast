@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Weather App</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Weather Forecast</h1>
+    </header>
+    
+    <div class="container">
+        <form action="/weather" method="POST" class="weather-form">
+            <input type="text" id="city" name="city" placeholder="Enter City Name" required>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        <% if (weather) { %>
+            <div class="weather-card">
+                <div class="location">
+                    <h2><%= weather.name %></h2>
+                    <p><%= weather.weather[0].description %></p>
+                </div>
+                <div class="weather-details">
+                    <div class="weather-item">
+                        <img src="http://openweathermap.org/img/wn/<%= weather.weather[0].icon %>@2x.png" alt="Weather Icon">
+                        <p>Condition</p>
+                    </div>
+                    <div class="weather-item">
+                        <img src="/icons/temperature.svg" alt="Temperature">
+                        <p><%= weather.main.temp %> °C</p>
+                    </div>
+                    <div class="weather-item">
+                        <img src="/icons/humidity.svg" alt="Humidity">
+                        <p><%= weather.main.humidity %>% Humidity</p>
+                    </div>
+                    <div class="weather-item">
+                        <img src="/icons/wind.svg" alt="Wind Speed">
+                        <p><%= (weather.wind.speed * 3.6).toFixed(2) %> km/h Wind</p>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+        <% if (error) { %>
+            <p class="error-message"><%= error %></p>
+        <% } %>
+    </div>
+</body>
+</html>
